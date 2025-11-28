@@ -1,9 +1,5 @@
 # compiled output
 /dist
-!/node_modules/@prisma
-!/node_modules/@prisma/**
-!/node_modules/.prisma
-!/node_modules/.prisma/**
 /node_modules
 /build
 

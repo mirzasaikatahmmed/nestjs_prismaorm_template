@@ -22,7 +22,7 @@ This repository is a **GitHub Template**, allowing you to quickly bootstrap a ne
 
 ### **1. Install dependencies**
 ```bash
-npm install
+pnpm install
 ````
 
 ### **2. Setup environment variables**
@@ -58,19 +58,19 @@ npm run start
 ### **Development**
 
 ```bash
-npm run start
+pnpm run start
 ```
 
 ### **Watch Mode (Auto Reload)**
 
 ```bash
-npm run start:dev
+pnpm run start:dev
 ```
 
 ### **Production**
 
 ```bash
-npm run start:prod
+pnpm run start:prod
 ```
 
 ---
