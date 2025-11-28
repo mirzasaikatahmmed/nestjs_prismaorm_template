@@ -2,23 +2,6 @@ import { HttpException, Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 
-// export function shmaim() {
-//   return function (
-//     target: any,
-//     propertyKey: string,
-//     descriptor: PropertyDescriptor,
-//   ) {
-//     const originalMethod = descriptor.value;
-
-//     descriptor.value = async function (...args: any[]) {
-//       console.log("shamim login 2nd");
-//       return await originalMethod.apply(this, args);
-//     };
-
-//     console.log("shamim login 1st");
-//   };
-// }
-
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -35,7 +18,6 @@ export class UserService {
     return await this.prisma.client.user.create({ data: createUserDtos });
   }
 
-  // @shmaim()
   async justCheck() {
     return 'decorate success';
   }
