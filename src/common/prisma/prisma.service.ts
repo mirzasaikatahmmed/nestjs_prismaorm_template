@@ -1,11 +1,10 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-
 import { PrismaPg } from '@prisma/adapter-pg';
 import 'dotenv/config';
 import { PrismaClient } from 'generated/prisma/client';
 
 @Injectable()
-export class PrismaService implements OnModuleInit {
+export class PrismaService implements OnModuleInit, OnModuleDestroy {
   private readonly prisma: PrismaClient;
 
   constructor() {
@@ -18,7 +17,10 @@ export class PrismaService implements OnModuleInit {
 
   async onModuleInit() {
     await this.prisma.$connect();
-    console.log('database is connected');
+  }
+
+  async onModuleDestroy() {
+    await this.prisma.$disconnect();
   }
 
   get client() {

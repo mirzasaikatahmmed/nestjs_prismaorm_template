@@ -1,128 +1,112 @@
+# NestJS + Prisma ORM Template
 
+A production-ready **NestJS + Prisma ORM** starter template for team projects.
+Click **"Use this template"** on GitHub to bootstrap a new project.
 
-# 🚀 NestJS PrismaORM Template (v7.0.1)
+## Tech Stack
 
-A fully configured **NestJS + Prisma ORM** starter template, designed for fast backend development.  
-This repository is a **GitHub Template**, allowing you to quickly bootstrap a new project with a clean structure.
+- **NestJS** v11 - Progressive Node.js framework
+- **Prisma ORM** v7 - Type-safe database client with PostgreSQL adapter
+- **Swagger** - Auto-generated API documentation
+- **Docker Compose** - PostgreSQL container setup
+- **ESLint + Prettier** - Code linting and formatting
+- **Jest** - Unit and e2e testing
 
----
+## Getting Started
 
-## 📦 Features
+### 1. Install dependencies
 
-- ✅ NestJS (v7+) clean modular architecture  
-- ✅ Prisma ORM integration  
-- ✅ Auto-generated Prisma Client  
-- ✅ Ready-to-use environment setup  
-- ✅ Development / Production scripts  
-- ✅ Perfect as a starter boilerplate or template repo  
-
----
-
-## 📁 Project Setup
-
-### **1. Install dependencies**
 ```bash
 pnpm install
-````
+```
 
-### **2. Setup environment variables**
-
-Rename `.env.example` → `.env`
+### 2. Setup environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-Edit your database connection:
+Edit `.env` with your database credentials.
 
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
-```
-
-### **3. Generate Prisma Client**
+### 3. Start PostgreSQL (Docker)
 
 ```bash
-npx prisma generate
+docker compose up -d
 ```
 
-### **4. Run the project**
+### 4. Run migrations and generate Prisma client
 
 ```bash
-npm run start
+pnpm migrate
 ```
 
----
-
-# 🏃‍♂️ Running Modes
-
-### **Development**
+### 5. Start the server
 
 ```bash
-pnpm run start
+pnpm dev
 ```
 
-### **Watch Mode (Auto Reload)**
+API docs available at `http://localhost:3000/api`
+
+## Scripts
+
+| Command              | Description                          |
+| -------------------- | ------------------------------------ |
+| `pnpm dev`           | Start in watch mode                  |
+| `pnpm build`         | Build for production                 |
+| `pnpm start:prod`    | Run production build                 |
+| `pnpm lint`          | Lint and auto-fix                    |
+| `pnpm format`        | Format code with Prettier            |
+| `pnpm ci:fix`        | Run lint + format                    |
+| `pnpm migrate`       | Run Prisma migrations + generate     |
+| `pnpm migrate:prod`  | Deploy migrations (production)       |
+| `pnpm prisma:studio` | Open Prisma Studio                   |
+| `pnpm prisma:generate` | Generate Prisma client             |
+| `pnpm test`          | Run unit tests                       |
+| `pnpm test:e2e`      | Run e2e tests                        |
+| `pnpm test:cov`      | Run tests with coverage              |
+
+## Folder Structure
+
+```
+src/
+├── common/
+│   ├── decorators/          # Custom decorators
+│   ├── exceptions/          # Custom exception classes
+│   ├── filters/             # Exception filters
+│   ├── guards/              # Auth and role guards
+│   ├── interceptors/        # Request/response interceptors
+│   └── prisma/              # Prisma module and service (global)
+├── modules/
+│   ├── auth/                # Authentication module
+│   │   ├── dto/
+│   │   ├── auth.controller.ts
+│   │   ├── auth.module.ts
+│   │   └── auth.service.ts
+│   └── user/                # User module
+│       ├── dto/
+│       ├── user.controller.ts
+│       ├── user.module.ts
+│       └── user.service.ts
+├── app.controller.ts        # Health check endpoint
+├── app.module.ts            # Root module
+├── app.service.ts
+└── main.ts                  # Application entry point
+prisma/
+├── schema/
+│   ├── schema.prisma        # Datasource and generator config
+│   └── user.prisma          # User model
+└── migrations/              # Database migrations
+```
+
+## Adding a New Module
 
 ```bash
-pnpm run start:dev
+nest g resource modules/your-module
 ```
 
-### **Production**
+This generates controller, service, module, DTOs, and spec files inside `src/modules/`.
 
-```bash
-pnpm run start:prod
-```
-
----
-
-## 🗂 Folder Structure Overview
-
-```
-project-root/
- ┣ prisma/
- ┃ ┗ schema.prisma
- ┣ src/
- ┃ ┣ modules/
- ┃ ┣ common/
- ┃ ┣ app.module.ts
- ┃ ┗ main.ts
- ┣ .env.example
- ┣ package.json
- ┣ tsconfig.json
- ┗ README.md
-```
-
----
-
-## 🛠 Prisma Useful Commands
-
-Generate Prisma Client:
-
-```bash
-npx prisma generate
-```
-
-Run Prisma Studio:
-
-```bash
-npx prisma studio
-```
-
-Run database migrations:
-
-```bash
-npx prisma migrate dev
-```
-
----
-
-## 📌 Notes
-
-This repository is configured as a **GitHub Template**.
-Click the **“Use this template”** button to create a new project instantly.
-
----
-
-## 📄 License
+## License
 
 This project is open-source and free to use.

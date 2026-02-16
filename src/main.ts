@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,11 +17,12 @@ async function bootstrap() {
     }),
   );
 
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('API')
+    .setDescription('API documentation')
     .setVersion('1.0')
-    .addTag('cats')
     .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
@@ -30,8 +32,8 @@ async function bootstrap() {
     },
   });
 
-  const port = process.env.PORT! || 3000;
-  await app.listen(process.env.PORT ?? port);
-  console.log(`the server running at http://localhost:${port}/api`);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  console.log(`Server running at http://localhost:${String(port)}/api`);
 }
-bootstrap();
+void bootstrap();
